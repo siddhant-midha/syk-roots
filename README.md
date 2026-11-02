@@ -1,25 +1,24 @@
 # syk-roots
 
-Zeros of the **annealed SYK partition function** on the complex plane, by exact diagonalization:
+Numerical supplement to A. Basu and S. Midha, *Lee-Yang theorems for q-deformed oscillators and doubly-scaled SYK*:
+zeros of the annealed SYK partition function in the complex plane, computed by exact diagonalization,
 
 $$Z_n(z) = \mathbb{E}_{\boldsymbol g}\, \mathrm{tr}\, e^{z H_{\rm SYK}(\boldsymbol g)}, \qquad
 H_{\rm SYK} = \sigma_{n,k} \sum_{|S|=k} g_S \Gamma_S,\quad \sigma_{n,k}^2 = \frac{(k-1)!}{2k\,n^{k-1}},$$
 
 with $g_S$ i.i.d. $\mathcal N(0,1)$, $\Gamma_S = i^{k(k-1)/2}\gamma_{i_1}\cdots\gamma_{i_k}$ and $\mathrm{tr}$ the
-normalized trace. These are the conventions of Basu–Midha, *Lee-Yang theorems for q-deformed oscillators and
-doubly-scaled SYK* (Sec. 5), whose Theorem 1.4 says that all zeros of $Z_n$ go to the imaginary axis as
-$n,k\to\infty$ with $k^2/n\to\alpha$, and whose **Remark 1.5** says that this fails at finite size, e.g. for
-$n=8$, $k=4$ the annealed partition function has zeros with non-zero real part. This repo checks Remark 1.5
-numerically and maps the zeros for a range of $(n,k)$. The plots use the style of Fig. 3 of *SYK thermal
-expectations are classically easy at any temperature*.
+normalized trace, as in Sec. 5 of the manuscript. Theorem 1.4 there states that the zeros of $Z_n$ approach the
+imaginary axis as $n,k\to\infty$ with $k^2/n\to\alpha$; Remark 1.5 states that at finite size $Z_n$ need not be
+imaginary-rooted, e.g. at $n=8$, $k=4$. Below we give the zeros at $n=8$, $k=4$ both by ED and in closed form, and
+the zeros for even $n\le18$ (and $n\le24$ to follow) with $k\in\{2,4,6,8\}$.
 
-Below, $t=\sqrt{V_n}\,z$ with $V_n=\mathbb E\,\mathrm{tr}H_{\rm SYK}^2=\sigma_{n,k}^2\binom nk$. This is the variable in
-which the paper's comparator $Q_n(z)=\mathcal L_{q_n}(\sqrt{V_n}z)$ has its zeros at $\pm i\,t_j(q_n)$. Zeros come in
+Throughout, $t=\sqrt{V_n}\,z$ with $V_n=\mathbb E\,\mathrm{tr}H_{\rm SYK}^2=\sigma_{n,k}^2\binom nk$. This is the variable in
+which the comparator of Lemma 5.2, $Q_n(z)=\mathcal L_{q_n}(\sqrt{V_n}z)$, has its zeros at $\pm i\,t_j(q_n)$. Zeros come in
 sets $\{\pm z,\pm\bar z\}$; only the first quadrant is listed.
 
 ## Results
 
-### Remark 1.5 (n = 8, k = 4): confirmed, by ED and exactly
+### n = 8, k = 4 (Remark 1.5): ED and closed form
 
 ![n=8, k=4: ED (left) and exact traceless-GOE(8) result (right); bottom row zooms on the first off-axis zero](figs/remark_n8_k4_ed_vs_exact.png)
 
@@ -57,15 +56,15 @@ axis**, along four rays at about $45^\circ$ (`exact_n8k4.py`).
 
 Every resolved ED zero agrees with an exact zero to within 1.7σ. This includes the off-axis quadruplet
 $z\approx\pm26.7\pm33.0\,i$, whose real part is about 500σ from zero in ED. The 22 ED zeros that the resolved
-criterion rejected (grey rings) have no exact counterpart: they are Monte Carlo noise. That validates the noise
-handling used for all other $(n,k)$. Tables: [results/exact_n8_k4.md](results/exact_n8_k4.md),
+criterion rejected (grey rings) have no exact counterpart; they are Monte Carlo noise, which calibrates the
+criterion used for the other $(n,k)$. Tables: [results/exact_n8_k4.md](results/exact_n8_k4.md),
 [results/zeros_n8_k4.md](results/zeros_n8_k4.md).
 
 ### Range of (n, k)
 
 All panels use the common window $|\Re t|\le18$, $|\Im t|\le36$. White dots are resolved zeros, grey rings are
-unresolved ones, open white circles are the zeros of the paper's $Q_n$, and the grey veil marks where the noise
-exceeds 40% of $|Z|$. Single-$(n,k)$ figures in the paper's $z$ over the full analysis window follow in the
+unresolved ones, open white circles are the zeros of $Q_n$, and the grey veil marks where the noise
+exceeds 40% of $|Z|$. Single-$(n,k)$ figures in $z$ over the full analysis window follow in the
 gallery below; tables are in `results/`.
 
 ![Zeros of the annealed SYK partition function for k = 2, 4, 6, 8 (rows) and n = 8 ... 18 (columns)](figs/zeros_grid.png)
@@ -85,7 +84,7 @@ gallery below; tables are in `results/`.
 
 [results/summary.md](results/summary.md) has all pairs.
 
-#### Each (n, k) in the paper's variable z (click to enlarge)
+#### Each (n, k) in the variable z (click to enlarge)
 
 <!-- gallery -->
 <table>
@@ -114,26 +113,26 @@ gallery below; tables are in `results/`.
   the density there is 0.15× (n = 12) and 1.7× (n = 16) the smooth value, versus ≈1 at n = 10, 14, 18. This is
   consistent with the particle-hole structure of q ≡ 2 (mod 4) SYK at n ≡ 0 (mod 4). It is a finite-size effect,
   whose scale shrinks with the level spacing.
-* **Duality check.** $\Gamma_S\Gamma_{[n]}\propto\Gamma_{S^c}$, so (n,k) and (n,n−k) have the same $Z_n$ in $t$.
-  Independent runs reproduce this: (12,4) and (12,8) give $5.475+29.034i$ and $5.474+29.034i$; (8,2)/(8,6) and
+* **Duality.** $\Gamma_S\Gamma_{[n]}\propto\Gamma_{S^c}$, so (n,k) and (n,n−k) have the same $Z_n$ in $t$.
+  The independent runs agree accordingly: (12,4) and (12,8) give $5.475+29.034i$ and $5.474+29.034i$; (8,2)/(8,6) and
   (10,2)/(10,8) agree as well.
 
 #### Axis zeros against the q-oscillator
 
-![t_j(ED) / t_j(q) for the paper's q_n (top) and the exact q~ (bottom)](figs/axis_vs_qosc.png)
+![t_j(ED) / t_j(q) for q_n = exp(-2k^2/n) (top) and the exact q~ (bottom)](figs/axis_vs_qosc.png)
 
 * **q-oscillator comparison.** On-axis zeros $t_j$ against $t_j(q)$, maximum relative deviation over the first ≤10:
 
   | | k=4, n=12 | n=14 | n=16 | n=18 | k=6, n=18 | k=8, n=18 |
   |---|---|---|---|---|---|---|
-  | paper's $q_n=e^{-2k^2/n}$ | 8.9% | 9.9% | 9.2% | 8.6% | 0.7% | 0.0% |
+  | $q_n=e^{-2k^2/n}$ | 8.9% | 9.9% | 9.2% | 8.6% | 0.7% | 0.0% |
   | exact $\tilde q=\mathbb E(-1)^{\lvert S\cap T\rvert}$ | 3.5% | 2.4% | 0.8% | 0.4% | 0.2% | 0.0% |
 
   With $\tilde q$ (the value that matches $\mathbb E\,\mathrm{tr}H^4=V_n^2(2+\tilde q)$), $\mathcal L_{\tilde q}(\sqrt{V_n}z)$
   locates the finite-n axis zeros to under 1% from n ≈ 16. Unlike $e^{-2k^2/n}$, $\tilde q$ also respects the
   k ↔ n−k duality.
 
-n = 20, 22, 24 (ED on 2¹⁰–2¹² dimensional blocks) are being added.
+Results for n = 20, 22, 24 (parity blocks of dimension 2⁹–2¹¹) will be added.
 
 ## Method
 
@@ -161,9 +160,9 @@ n = 20, 22, 24 (ED on 2¹⁰–2¹² dimensional blocks) are being added.
   the samples differ by $<d/5$, and, for off-axis zeros, $\Re z > 5\,\mathrm{err}$. The halves check guards against
   a failure the jackknife cannot see: at large $\Re z$ the average is weighted by $e^{\Re z\,\lambda}$, so rare
   large-eigenvalue samples can dominate it.
-* **Exact check at n = 8, k = 4** (`goe.py`, `exact_n8k4.py`): closed form via the traceless GOE(8), evaluated with
+* **Closed form at n = 8, k = 4** (`goe.py`, `exact_n8k4.py`): via the traceless GOE(8), evaluated with
   scipy's complex erf. It agrees with a 40-digit mpmath evaluation to $2\times10^{-12}$ over the plotted window.
-* **q-oscillator comparison.** The paper's finite-$n$ comparator $Q_n(z)=\mathcal L_{q_n}(\sqrt{V_n}z)$,
+* **q-oscillator comparison.** The finite-$n$ comparator of Lemma 5.2, $Q_n(z)=\mathcal L_{q_n}(\sqrt{V_n}z)$,
   $q_n=e^{-2k^2/n}$, has zeros $\pm i\,t_j(q_n)/\sqrt{V_n}$. Here $t_j(q)$ are computed from a truncated Jacobi
   matrix of $a_q+a_q^*$, i.e. the Gauss rule of the $q$-Gaussian (`qosc.py`). They are drawn as open circles.
 

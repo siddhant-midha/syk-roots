@@ -1,7 +1,6 @@
 """Domain-coloring plots of the annealed SYK partition function Z_n(z) = E tr exp(z H_SYK) and its zeros.
 
-Style follows Fig. 3 of "SYK thermal expectations are classically easy at any temperature": hue = arg Z,
-brightness = |Z| (gamma-corrected log scale), zeros = white dots. Additionally: open white circles = zeros
+Domain coloring: hue = arg Z, brightness = |Z| (gamma-corrected log scale), zeros = white dots. Additionally: open white circles = zeros
 +-i t_j(q_n)/sqrt(V_n) of the q-oscillator comparator Q_n(z) = L_{q_n}(sqrt(V_n) z) of paper 1 (Lemma 5.2);
 grey veil = region where the Monte Carlo (jackknife) noise exceeds 40% of |Z|; small grey rings = zeros there.
 
