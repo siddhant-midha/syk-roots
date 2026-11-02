@@ -1,7 +1,7 @@
 """Tables from the analyze.py outputs: results/summary.csv, results/summary.md (all (n, k)) and
 results/zeros_n{n}_k{k}.md (resolved zeros with jackknife errors).
 
-    python summarize.py results
+    python summarize.py results [--readme README.md]   (also refreshes the README figure gallery)
 """
 import argparse
 import csv
@@ -23,9 +23,30 @@ def zero_table(res):
     return "\n".join(lines) + "\n"
 
 
+def readme_gallery(readme, figdir="figs"):
+    """Thumbnail table of figs/zeros_n{n}_k{k}.png between the <!-- gallery --> markers of the README."""
+    figs = {}
+    for path in glob.glob(os.path.join(os.path.dirname(readme) or ".", figdir, "zeros_n*_k*.png")):
+        n, k = os.path.basename(path)[7:-4].split("_k")
+        figs[(int(n), int(k))] = f"{figdir}/{os.path.basename(path)}"
+    ns = sorted({n for n, _ in figs})
+    ks = sorted({k for _, k in figs})
+    html = ["<table>", "<tr><th></th>" + "".join(f"<th>n={n}</th>" for n in ns) + "</tr>"]
+    for k in ks:
+        cells = "".join(f'<td><a href="{figs[(n, k)]}"><img src="{figs[(n, k)]}" width="105"></a></td>'
+                        if (n, k) in figs else "<td></td>" for n in ns)
+        html.append(f"<tr><th>k={k}</th>{cells}</tr>")
+    html.append("</table>")
+    text = open(readme).read()
+    a, b = text.index("<!-- gallery -->"), text.index("<!-- /gallery -->")
+    with open(readme, "w") as f:
+        f.write(text[:a] + "<!-- gallery -->\n" + "\n".join(html) + "\n" + text[b:])
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("resdir")
+    ap.add_argument("--readme", default="")
     args = ap.parse_args()
     rows = []
     for path in sorted(glob.glob(os.path.join(args.resdir, "n*_k*.json"))):
@@ -64,6 +85,8 @@ def main():
     with open(os.path.join(args.resdir, "summary.md"), "w") as f:
         f.write("\n".join(md) + "\n")
     print("\n".join(md))
+    if args.readme:
+        readme_gallery(args.readme)
 
 
 if __name__ == "__main__":

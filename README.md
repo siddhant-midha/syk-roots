@@ -47,10 +47,10 @@ off-axis zero as a phase singularity, where all colours meet, away from the axis
 
 All panels use the common window $|\Re t|\le18$, $|\Im t|\le36$. White dots are resolved zeros, grey rings are
 unresolved ones, open white circles are the zeros of the paper's $Q_n$, and the grey veil marks where the noise
-exceeds 40% of $|Z|$. Single-$(n,k)$ figures in the paper's $z$ over the full analysis window are in
-`figs/zeros_n{n}_k{k}.png`; tables are in `results/`.
+exceeds 40% of $|Z|$. Single-$(n,k)$ figures in the paper's $z$ over the full analysis window follow in the
+gallery below; tables are in `results/`.
 
-![grid](figs/zeros_grid.png)
+![Zeros of the annealed SYK partition function for k = 2, 4, 6, 8 (rows) and n = 8 ... 18 (columns)](figs/zeros_grid.png)
 
 | k | n | first resolved off-axis zero (t) | resolved zeros on the axis below it |
 |---|---|---|---|
@@ -67,9 +67,26 @@ exceeds 40% of $|Z|$. Single-$(n,k)$ figures in the paper's $z$ over the full an
 
 [results/summary.md](results/summary.md) has all pairs.
 
+#### Each (n, k) in the paper's variable z (click to enlarge)
+
+<!-- gallery -->
+<table>
+<tr><th></th><th>n=8</th><th>n=10</th><th>n=12</th><th>n=14</th><th>n=16</th><th>n=18</th></tr>
+<tr><th>k=2</th><td><a href="figs/zeros_n8_k2.png"><img src="figs/zeros_n8_k2.png" width="105"></a></td><td><a href="figs/zeros_n10_k2.png"><img src="figs/zeros_n10_k2.png" width="105"></a></td><td><a href="figs/zeros_n12_k2.png"><img src="figs/zeros_n12_k2.png" width="105"></a></td><td><a href="figs/zeros_n14_k2.png"><img src="figs/zeros_n14_k2.png" width="105"></a></td><td><a href="figs/zeros_n16_k2.png"><img src="figs/zeros_n16_k2.png" width="105"></a></td><td><a href="figs/zeros_n18_k2.png"><img src="figs/zeros_n18_k2.png" width="105"></a></td></tr>
+<tr><th>k=4</th><td><a href="figs/zeros_n8_k4.png"><img src="figs/zeros_n8_k4.png" width="105"></a></td><td><a href="figs/zeros_n10_k4.png"><img src="figs/zeros_n10_k4.png" width="105"></a></td><td><a href="figs/zeros_n12_k4.png"><img src="figs/zeros_n12_k4.png" width="105"></a></td><td><a href="figs/zeros_n14_k4.png"><img src="figs/zeros_n14_k4.png" width="105"></a></td><td><a href="figs/zeros_n16_k4.png"><img src="figs/zeros_n16_k4.png" width="105"></a></td><td><a href="figs/zeros_n18_k4.png"><img src="figs/zeros_n18_k4.png" width="105"></a></td></tr>
+<tr><th>k=6</th><td><a href="figs/zeros_n8_k6.png"><img src="figs/zeros_n8_k6.png" width="105"></a></td><td><a href="figs/zeros_n10_k6.png"><img src="figs/zeros_n10_k6.png" width="105"></a></td><td><a href="figs/zeros_n12_k6.png"><img src="figs/zeros_n12_k6.png" width="105"></a></td><td><a href="figs/zeros_n14_k6.png"><img src="figs/zeros_n14_k6.png" width="105"></a></td><td><a href="figs/zeros_n16_k6.png"><img src="figs/zeros_n16_k6.png" width="105"></a></td><td><a href="figs/zeros_n18_k6.png"><img src="figs/zeros_n18_k6.png" width="105"></a></td></tr>
+<tr><th>k=8</th><td></td><td><a href="figs/zeros_n10_k8.png"><img src="figs/zeros_n10_k8.png" width="105"></a></td><td><a href="figs/zeros_n12_k8.png"><img src="figs/zeros_n12_k8.png" width="105"></a></td><td><a href="figs/zeros_n14_k8.png"><img src="figs/zeros_n14_k8.png" width="105"></a></td><td><a href="figs/zeros_n16_k8.png"><img src="figs/zeros_n16_k8.png" width="105"></a></td><td><a href="figs/zeros_n18_k8.png"><img src="figs/zeros_n18_k8.png" width="105"></a></td></tr>
+</table>
+<!-- /gallery -->
+
+#### Where the zeros leave the axis
+
+<img src="figs/onset.png" width="480" alt="first off-axis zero against sqrt(2D)">
+
 * **Approach to the axis.** For k = 4, 6 and 8 the off-axis zeros move outward as n grows. By n = 16–18 every
   zero resolved in windows up to $|t|\approx 120$ lies on the imaginary axis, as Theorem 1.4 predicts for
-  $n\to\infty$. For k = 4 the first off-axis zero roughly tracks $|t|\sim\sqrt{2D}$ with $D=\binom nk$ (`figs/onset.png`).
+  $n\to\infty$. For k = 4 the first off-axis zero roughly tracks $|t|\sim\sqrt{2D}$ with $D=\binom nk$ (dotted
+  line). Open triangles mark (n,k) with no resolved off-axis zero, plotted at the largest resolved axis zero.
   A heuristic for that scale: integrating out the overall coupling scale $|\boldsymbol g|\sim\chi_D$ damps the
   oscillations of $Z_n(it)$ beyond $|t|\sim\sqrt{2D}$.
 * **k = 2 (free fermions)** has off-axis zeros at $|t|\approx 6$–11 at every n up to 18. Here $q_n=e^{-8/n}\to1$, so
@@ -82,8 +99,12 @@ exceeds 40% of $|Z|$. Single-$(n,k)$ figures in the paper's $z$ over the full an
 * **Duality check.** $\Gamma_S\Gamma_{[n]}\propto\Gamma_{S^c}$, so (n,k) and (n,n−k) have the same $Z_n$ in $t$.
   Independent runs reproduce this: (12,4) and (12,8) give $5.475+29.034i$ and $5.474+29.034i$; (8,2)/(8,6) and
   (10,2)/(10,8) agree as well.
-* **q-oscillator comparison** (`figs/axis_vs_qosc.png`). On-axis zeros $t_j$ against $t_j(q)$, maximum relative
-  deviation over the first ≤10:
+
+#### Axis zeros against the q-oscillator
+
+![t_j(ED) / t_j(q) for the paper's q_n (top) and the exact q~ (bottom)](figs/axis_vs_qosc.png)
+
+* **q-oscillator comparison.** On-axis zeros $t_j$ against $t_j(q)$, maximum relative deviation over the first ≤10:
 
   | | k=4, n=12 | n=14 | n=16 | n=18 | k=6, n=18 | k=8, n=18 |
   |---|---|---|---|---|---|---|
@@ -133,6 +154,7 @@ python tests/test_syk.py                                   # Majorana algebra, b
 python sample.py --n 8 --k 4 --samples 1000000 --seed 1 --out out/n8_k4/s1.npz
 python analyze.py out/n8_k4/*.npz --out results/n8_k4      # zeros + jackknife errors -> json, plotting grid -> npz
 python plot_roots.py results --out figs
+python summarize.py results --readme README.md             # tables + refresh the figure gallery above
 ```
 
 `della/` holds the Slurm scripts used on Princeton's Della cluster.
