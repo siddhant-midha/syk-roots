@@ -10,7 +10,7 @@ with $g_S$ i.i.d. $\mathcal N(0,1)$, $\Gamma_S = i^{k(k-1)/2}\gamma_{i_1}\cdots\
 normalized trace, as in Sec. 5 of the manuscript. Theorem 1.4 there states that the zeros of $Z_n$ approach the
 imaginary axis as $n,k\to\infty$ with $k^2/n\to\alpha$; Remark 1.5 states that at finite size $Z_n$ need not be
 imaginary-rooted, e.g. at $n=8$, $k=4$. Below we give the zeros at $n=8$, $k=4$ both by ED and in closed form, and
-the zeros for even $n\le18$ (and $n\le24$ to follow) with $k\in\{2,4,6,8\}$.
+the zeros for all even $8\le n\le24$ with $k\in\{2,4,6,8\}$, $k<n$.
 
 Throughout, $t=\sqrt{V_n}\,z$ with $V_n=\mathbb E\,\mathrm{tr}H_{\rm SYK}^2=\sigma_{n,k}^2\binom nk$. This is the variable in
 which the comparator of Lemma 5.2, $Q_n(z)=\mathcal L_{q_n}(\sqrt{V_n}z)$, has its zeros at $\pm i\,t_j(q_n)$. Zeros come in
@@ -67,7 +67,7 @@ unresolved ones, open white circles are the zeros of $Q_n$, and the grey veil ma
 exceeds 40% of $|Z|$. Single-$(n,k)$ figures in $z$ over the full analysis window follow in the
 gallery below; tables are in `results/`.
 
-![Zeros of the annealed SYK partition function for k = 2, 4, 6, 8 (rows) and n = 8 ... 18 (columns)](figs/zeros_grid.png)
+![Zeros of the annealed SYK partition function for k = 2, 4, 6, 8 (rows) and n = 8 ... 24 (columns)](figs/zeros_grid.png)
 
 | k | n | first resolved off-axis zero (t) | resolved zeros on the axis below it |
 |---|---|---|---|
@@ -77,10 +77,14 @@ gallery below; tables are in `results/`.
 | 4 | 14 | 1.81 + 62.65 i | 33 |
 | 4 | 16 | none (all resolved zeros on the axis, up to t = 56.8) | 35 |
 | 4 | 18 | none (up to t = 77.2) | 49 |
-| 6 | 10 / 14 / 18 | none (up to t = 28.2 / 117.5 / 119.0) | 15 / 62 / 75 |
-| 6 | 12 / 16 | 0.462 + 13.870 i / 0.086 + 27.864 i (a row of near-axis pairs) | 7 / 16 |
-| 8 | 14 / 16 / 18 | none (up to t = 117.5 / 107.2 / 119.3) | 62 / 63 / 75 |
-| 2 | 8 – 18 | between 0.25 + 7.96 i and 1.34 + 11.19 i at every n | 2 – 7 |
+| 4 | 20 / 22 / 24 | none (up to t = 114.8 / 119.5 / 116.5) | 74 / 65 / 68 |
+| 6 | 10 / 14 / 18 / 22 / 24 | none (up to t = 28.2 / 117.5 / 119.0 / 118.5 / 119.9) | 15 / 62 / 75 / 75 / 76 |
+| 6 | 12 / 16 / 20 | 0.462 + 13.870 i / 0.086 + 27.864 i / 0.232 + 70.330 i (rows of near-axis pairs) | 7 / 16 / 41 |
+| 8 | 14 / 16 / 18 / 20 / 22 / 24 | none (up to t ≈ 107–120) | 62 – 76 |
+| 2 | 8 – 24 | at every n: \|t\| = 5.8 – 13.6, Re t = 0.19 – 1.34 | 2 – 10 |
+
+Disorder samples per $(n,k)$: $1.1$–$2.6\times10^9$ at $n=8$, decreasing to $\approx2\times10^4$ at $n=24$
+(column `samples` in the summary).
 
 [results/summary.md](results/summary.md) has all pairs.
 
@@ -88,11 +92,11 @@ gallery below; tables are in `results/`.
 
 <!-- gallery -->
 <table>
-<tr><th></th><th>n=8</th><th>n=10</th><th>n=12</th><th>n=14</th><th>n=16</th><th>n=18</th></tr>
-<tr><th>k=2</th><td><a href="figs/zeros_n8_k2.png"><img src="figs/zeros_n8_k2.png" width="105"></a></td><td><a href="figs/zeros_n10_k2.png"><img src="figs/zeros_n10_k2.png" width="105"></a></td><td><a href="figs/zeros_n12_k2.png"><img src="figs/zeros_n12_k2.png" width="105"></a></td><td><a href="figs/zeros_n14_k2.png"><img src="figs/zeros_n14_k2.png" width="105"></a></td><td><a href="figs/zeros_n16_k2.png"><img src="figs/zeros_n16_k2.png" width="105"></a></td><td><a href="figs/zeros_n18_k2.png"><img src="figs/zeros_n18_k2.png" width="105"></a></td></tr>
-<tr><th>k=4</th><td><a href="figs/zeros_n8_k4.png"><img src="figs/zeros_n8_k4.png" width="105"></a></td><td><a href="figs/zeros_n10_k4.png"><img src="figs/zeros_n10_k4.png" width="105"></a></td><td><a href="figs/zeros_n12_k4.png"><img src="figs/zeros_n12_k4.png" width="105"></a></td><td><a href="figs/zeros_n14_k4.png"><img src="figs/zeros_n14_k4.png" width="105"></a></td><td><a href="figs/zeros_n16_k4.png"><img src="figs/zeros_n16_k4.png" width="105"></a></td><td><a href="figs/zeros_n18_k4.png"><img src="figs/zeros_n18_k4.png" width="105"></a></td></tr>
-<tr><th>k=6</th><td><a href="figs/zeros_n8_k6.png"><img src="figs/zeros_n8_k6.png" width="105"></a></td><td><a href="figs/zeros_n10_k6.png"><img src="figs/zeros_n10_k6.png" width="105"></a></td><td><a href="figs/zeros_n12_k6.png"><img src="figs/zeros_n12_k6.png" width="105"></a></td><td><a href="figs/zeros_n14_k6.png"><img src="figs/zeros_n14_k6.png" width="105"></a></td><td><a href="figs/zeros_n16_k6.png"><img src="figs/zeros_n16_k6.png" width="105"></a></td><td><a href="figs/zeros_n18_k6.png"><img src="figs/zeros_n18_k6.png" width="105"></a></td></tr>
-<tr><th>k=8</th><td></td><td><a href="figs/zeros_n10_k8.png"><img src="figs/zeros_n10_k8.png" width="105"></a></td><td><a href="figs/zeros_n12_k8.png"><img src="figs/zeros_n12_k8.png" width="105"></a></td><td><a href="figs/zeros_n14_k8.png"><img src="figs/zeros_n14_k8.png" width="105"></a></td><td><a href="figs/zeros_n16_k8.png"><img src="figs/zeros_n16_k8.png" width="105"></a></td><td><a href="figs/zeros_n18_k8.png"><img src="figs/zeros_n18_k8.png" width="105"></a></td></tr>
+<tr><th></th><th>n=8</th><th>n=10</th><th>n=12</th><th>n=14</th><th>n=16</th><th>n=18</th><th>n=20</th><th>n=22</th><th>n=24</th></tr>
+<tr><th>k=2</th><td><a href="figs/zeros_n8_k2.png"><img src="figs/zeros_n8_k2.png" width="105"></a></td><td><a href="figs/zeros_n10_k2.png"><img src="figs/zeros_n10_k2.png" width="105"></a></td><td><a href="figs/zeros_n12_k2.png"><img src="figs/zeros_n12_k2.png" width="105"></a></td><td><a href="figs/zeros_n14_k2.png"><img src="figs/zeros_n14_k2.png" width="105"></a></td><td><a href="figs/zeros_n16_k2.png"><img src="figs/zeros_n16_k2.png" width="105"></a></td><td><a href="figs/zeros_n18_k2.png"><img src="figs/zeros_n18_k2.png" width="105"></a></td><td><a href="figs/zeros_n20_k2.png"><img src="figs/zeros_n20_k2.png" width="105"></a></td><td><a href="figs/zeros_n22_k2.png"><img src="figs/zeros_n22_k2.png" width="105"></a></td><td><a href="figs/zeros_n24_k2.png"><img src="figs/zeros_n24_k2.png" width="105"></a></td></tr>
+<tr><th>k=4</th><td><a href="figs/zeros_n8_k4.png"><img src="figs/zeros_n8_k4.png" width="105"></a></td><td><a href="figs/zeros_n10_k4.png"><img src="figs/zeros_n10_k4.png" width="105"></a></td><td><a href="figs/zeros_n12_k4.png"><img src="figs/zeros_n12_k4.png" width="105"></a></td><td><a href="figs/zeros_n14_k4.png"><img src="figs/zeros_n14_k4.png" width="105"></a></td><td><a href="figs/zeros_n16_k4.png"><img src="figs/zeros_n16_k4.png" width="105"></a></td><td><a href="figs/zeros_n18_k4.png"><img src="figs/zeros_n18_k4.png" width="105"></a></td><td><a href="figs/zeros_n20_k4.png"><img src="figs/zeros_n20_k4.png" width="105"></a></td><td><a href="figs/zeros_n22_k4.png"><img src="figs/zeros_n22_k4.png" width="105"></a></td><td><a href="figs/zeros_n24_k4.png"><img src="figs/zeros_n24_k4.png" width="105"></a></td></tr>
+<tr><th>k=6</th><td><a href="figs/zeros_n8_k6.png"><img src="figs/zeros_n8_k6.png" width="105"></a></td><td><a href="figs/zeros_n10_k6.png"><img src="figs/zeros_n10_k6.png" width="105"></a></td><td><a href="figs/zeros_n12_k6.png"><img src="figs/zeros_n12_k6.png" width="105"></a></td><td><a href="figs/zeros_n14_k6.png"><img src="figs/zeros_n14_k6.png" width="105"></a></td><td><a href="figs/zeros_n16_k6.png"><img src="figs/zeros_n16_k6.png" width="105"></a></td><td><a href="figs/zeros_n18_k6.png"><img src="figs/zeros_n18_k6.png" width="105"></a></td><td><a href="figs/zeros_n20_k6.png"><img src="figs/zeros_n20_k6.png" width="105"></a></td><td><a href="figs/zeros_n22_k6.png"><img src="figs/zeros_n22_k6.png" width="105"></a></td><td><a href="figs/zeros_n24_k6.png"><img src="figs/zeros_n24_k6.png" width="105"></a></td></tr>
+<tr><th>k=8</th><td></td><td><a href="figs/zeros_n10_k8.png"><img src="figs/zeros_n10_k8.png" width="105"></a></td><td><a href="figs/zeros_n12_k8.png"><img src="figs/zeros_n12_k8.png" width="105"></a></td><td><a href="figs/zeros_n14_k8.png"><img src="figs/zeros_n14_k8.png" width="105"></a></td><td><a href="figs/zeros_n16_k8.png"><img src="figs/zeros_n16_k8.png" width="105"></a></td><td><a href="figs/zeros_n18_k8.png"><img src="figs/zeros_n18_k8.png" width="105"></a></td><td><a href="figs/zeros_n20_k8.png"><img src="figs/zeros_n20_k8.png" width="105"></a></td><td><a href="figs/zeros_n22_k8.png"><img src="figs/zeros_n22_k8.png" width="105"></a></td><td><a href="figs/zeros_n24_k8.png"><img src="figs/zeros_n24_k8.png" width="105"></a></td></tr>
 </table>
 <!-- /gallery -->
 
@@ -100,19 +104,21 @@ gallery below; tables are in `results/`.
 
 <img src="figs/onset.png" width="480" alt="first off-axis zero against sqrt(2D)">
 
-* **Approach to the axis.** For k = 4, 6 and 8 the off-axis zeros move outward as n grows. By n = 16–18 every
-  zero resolved in windows up to $|t|\approx 120$ lies on the imaginary axis, as Theorem 1.4 predicts for
-  $n\to\infty$. For k = 4 the first off-axis zero roughly tracks $|t|\sim\sqrt{2D}$ with $D=\binom nk$ (dotted
+* **Approach to the axis.** For k = 4, 6 and 8 the off-axis zeros move outward as n grows. For k = 4 and 8 at
+  n ≥ 16, and for k = 6 at n = 14, 18, 22, 24, every zero resolved in windows up to $|t|\approx 120$ lies on the
+  imaginary axis, in line with Theorem 1.4 for $n\to\infty$. For k = 4 the first off-axis zero roughly tracks $|t|\sim\sqrt{2D}$ with $D=\binom nk$ (dotted
   line). Open triangles mark (n,k) with no resolved off-axis zero, plotted at the largest resolved axis zero.
   A heuristic for that scale: integrating out the overall coupling scale $|\boldsymbol g|\sim\chi_D$ damps the
   oscillations of $Z_n(it)$ beyond $|t|\sim\sqrt{2D}$.
-* **k = 2 (free fermions)** has off-axis zeros at $|t|\approx 6$–11 at every n up to 18. Here $q_n=e^{-8/n}\to1$, so
+* **k = 2 (free fermions)** has off-axis zeros at $|t|\approx 6$–14 at every n up to 24. Here $q_n=e^{-8/n}\to1$, so
   no Lee–Yang limit is expected.
-* **k = 6 at n = 12, 16** (n ≡ 0 mod 4) has a regular row of near-axis pairs, Re t ≈ 0.1–2.4, robust to $10^{-3}$.
-  At the same (n,k) the fixed-$|\boldsymbol g|$ spectrum has an anomaly at E = 0 on the scale of one level spacing:
-  the density there is 0.15× (n = 12) and 1.7× (n = 16) the smooth value, versus ≈1 at n = 10, 14, 18. This is
-  consistent with the particle-hole structure of q ≡ 2 (mod 4) SYK at n ≡ 0 (mod 4). It is a finite-size effect,
-  whose scale shrinks with the level spacing.
+* **k = 6 at n = 12, 16, 20** (n ≡ 0 mod 4) has a regular row of near-axis pairs (Re t ≈ 0.1–2.4, errors
+  ≈ $10^{-3}$), starting at |t| = 13.9, 27.9, 70.3; at n = 24 it is not reached within |t| ≤ 120. At these (n,k)
+  the fixed-$|\boldsymbol g|$ spectrum has an anomaly at E = 0 on the scale of one level spacing. The density there,
+  relative to the smooth value, is 0.15 (n = 12) and 0.17 (n = 20), i.e. depleted for n ≡ 4 (mod 8). It is 1.7
+  (n = 16) and 1.4 (n = 24, from 14 eigenvalues), i.e. enhanced for n ≡ 0 (mod 8). It is ≈ 1 for n ≡ 2 (mod 4)
+  (n = 10, 14, 18, 22). This is consistent with the particle-hole structure of q ≡ 2 (mod 4) SYK at
+  n ≡ 0 (mod 4): a finite-size effect, whose scale shrinks with the level spacing.
 * **Duality.** $\Gamma_S\Gamma_{[n]}\propto\Gamma_{S^c}$, so (n,k) and (n,n−k) have the same $Z_n$ in $t$.
   The independent runs agree accordingly: (12,4) and (12,8) give $5.475+29.034i$ and $5.474+29.034i$; (8,2)/(8,6) and
   (10,2)/(10,8) agree as well.
@@ -123,16 +129,15 @@ gallery below; tables are in `results/`.
 
 * **q-oscillator comparison.** On-axis zeros $t_j$ against $t_j(q)$, maximum relative deviation over the first ≤10:
 
-  | | k=4, n=12 | n=14 | n=16 | n=18 | k=6, n=18 | k=8, n=18 |
+  | | k=4, n=12 | n=16 | n=20 | n=24 | k=6, n=24 | k=8, n=24 |
   |---|---|---|---|---|---|---|
-  | $q_n=e^{-2k^2/n}$ | 8.9% | 9.9% | 9.2% | 8.6% | 0.7% | 0.0% |
-  | exact $\tilde q=\mathbb E(-1)^{\lvert S\cap T\rvert}$ | 3.5% | 2.4% | 0.8% | 0.4% | 0.2% | 0.0% |
+  | $q_n=e^{-2k^2/n}$ | 8.9% | 9.2% | 8.4% | 8.5% | 2.9% | 0.2% |
+  | exact $\tilde q=\mathbb E(-1)^{\lvert S\cap T\rvert}$ | 3.5% | 0.8% | 0.50% | 0.25% | 0.11% | 0.02% |
 
   With $\tilde q$ (the value that matches $\mathbb E\,\mathrm{tr}H^4=V_n^2(2+\tilde q)$), $\mathcal L_{\tilde q}(\sqrt{V_n}z)$
-  locates the finite-n axis zeros to under 1% from n ≈ 16. Unlike $e^{-2k^2/n}$, $\tilde q$ also respects the
+  locates the finite-n axis zeros to within 1% from n ≈ 16 (0.25% at n = 24, k = 4). Unlike $e^{-2k^2/n}$, $\tilde q$ also respects the
   k ↔ n−k duality.
 
-Results for n = 20, 22, 24 (parity blocks of dimension 2⁹–2¹¹) will be added.
 
 ## Method
 
