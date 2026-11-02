@@ -188,7 +188,7 @@ def winding(f, rect, n_edge=48, max_rounds=30, dphi=0.5):
     """Number of zeros of f inside rect = (x0, x1, y0, y1), by the argument principle with adaptive refinement of
     the boundary until consecutive phase steps are below dphi. For an AnnealedZ the initial sampling resolves the
     fastest phase rotation away from zeros, |d arg Z / dz| <= max eigenvalue atom (else steps of 2 pi alias)."""
-    rate = (f.c[-1] + f.h) if hasattr(f, "c") else 0.0
+    rate = getattr(f, "phase_rate", None) or ((f.c[-1] + f.h) if hasattr(f, "c") else 0.0)
     zs = _contour(rect, max(n_edge, int(4 * rate * (rect[1] - rect[0]))), max(n_edge, int(4 * rate * (rect[3] - rect[2]))))
     fs = f(zs)
     for _ in range(max_rounds):

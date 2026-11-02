@@ -84,6 +84,33 @@ def test_estimator_moments_and_eval():
     assert np.allclose(dval, ddirect, rtol=1e-10, atol=1e-12)
 
 
+def test_n8_k4_is_traceless_goe():
+    """In each parity sector the 35 Gamma_S (1 in S) are real symmetric, traceless and orthonormal, so H = GOE_0(8)."""
+    syk = SYK(8, 4)
+    par = np.array([bin(b).count("1") % 2 for b in range(syk.N)])
+    for sector in (0, 1):
+        sel = np.ix_(par == sector, par == sector)
+        G = np.array([pauli_matrix(x, z, p, syk.N)[sel] for x, z, p, S in zip(syk.x, syk.z, syk.p, syk.S) if 0 in S])
+        assert len(G) == 35 == 8 * 9 // 2 - 1
+        assert np.allclose(np.einsum("aij,bji->ab", G, G) / 8, np.eye(35))
+        assert np.allclose(np.einsum("aii->a", G), 0)
+    try:
+        from goe import ExactZ84
+    except ImportError:  # sympy missing
+        return
+    ex = ExactZ84(syk.V)
+    h = 1e-3
+    assert np.isclose(ex(np.array([0.0]))[0], 1.0)
+    d2 = (ex(np.array([h]))[0] - 2 + ex(np.array([-h]))[0]) / h ** 2
+    assert np.isclose(d2.real, syk.V, rtol=1e-5)  # E tr H^2 = V_8
+    rng = np.random.default_rng(2)
+    g = rng.standard_normal((4000, syk.D))
+    lam = syk.sigma * syk.eigvals(g)
+    z = np.array([2.0, 3j, 5 + 5j])
+    mc = np.array([np.mean(np.cosh(zz * lam)) for zz in z])
+    assert np.allclose(mc, ex(z), rtol=0.02, atol=0.02)
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

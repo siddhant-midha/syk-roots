@@ -95,6 +95,32 @@ def fig_single(prefix, out, zoom=None):
     plt.close(fig)
 
 
+def fig_remark_exact(ed_prefix, exact_json, out):
+    """n = 8, k = 4: ED/Monte Carlo (left) next to the exact traceless-GOE(8) partition function (right), full window
+    (top) and zoom on the first off-axis zero (bottom)."""
+    from goe import ExactZ84
+    res, grid = load(ed_prefix)
+    exact = json.load(open(exact_json))
+    x, y = grid["x"], grid["y"]
+    Zx = ExactZ84(res["V"])(x[None, :] + 1j * y[:, None])
+    grid_x = dict(x=x, y=y, logabs=np.log(np.abs(Zx) + 1e-300), phase=np.angle(Zx), rel=np.zeros_like(grid["rel"]),
+                  rel_x=grid["rel_x"], rel_y=grid["rel_y"])
+    res_x = dict(res, zeros=[dict(z, resolved=True) for z in exact["zeros"]])
+    z0 = min((z for z in exact["zeros"] if not z["on_axis"]), key=lambda z: z["z_re"] ** 2 + z["z_im"] ** 2)
+    zoom = ((-0.15 * z0["z_re"], 1.6 * z0["z_re"]), (0, 1.6 * z0["z_im"]))
+    fig, axs = plt.subplots(2, 2, figsize=(7.2, 9.6))
+    mant, expo = f"{res['samples']:.1e}".split("e")
+    for col, (r, g, name) in enumerate([(res, grid, rf"ED, ${mant}\times10^{{{int(expo)}}}$ disorder samples"),
+                                        (res_x, grid_x, "exact: traceless GOE(8)")]):
+        panel(axs[0, col], r, g, ms=10)
+        axs[0, col].set_title(rf"$n=8,\ k=4$: {name}", fontsize=9)
+        panel(axs[1, col], r, g, ms=24, xlim=zoom[0], ylim=zoom[1])
+        axs[1, col].set_title("zoom", fontsize=9)
+    fig.tight_layout()
+    fig.savefig(out, dpi=200)
+    plt.close(fig)
+
+
 def fig_grid(results, out, ks, ns):
     """All (n, k) in the common window of t = sqrt(V_n) z (unit-variance Hamiltonian), so panels compare directly."""
     fig, axs = plt.subplots(len(ks), len(ns), figsize=(1.45 * len(ns) + 0.5, 2.75 * len(ks) + 0.4), squeeze=False,
@@ -207,6 +233,9 @@ def main():
         z0 = min((z for z in res["zeros"] if z["resolved"] and not z["on_axis"]), key=lambda z: z["t_re"] ** 2 + z["t_im"] ** 2)
         fig_single(results[(8, 4)], os.path.join(args.out, "remark_n8_k4.png"),
                    zoom=((-0.15 * z0["z_re"], 1.6 * z0["z_re"]), (0, 1.6 * z0["z_im"])))
+        exact = os.path.join(args.resdir, "exact_n8_k4.json")
+        if os.path.exists(exact):
+            fig_remark_exact(results[(8, 4)], exact, os.path.join(args.out, "remark_n8_k4_ed_vs_exact.png"))
     fig_grid(results, os.path.join(args.out, "zeros_grid.png"), ks, ns)
     for k in ks:
         fig_grid(results, os.path.join(args.out, f"zeros_k{k}.png"), [k], ns)

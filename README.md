@@ -19,28 +19,46 @@ sets $\{\pm z,\pm\bar z\}$; only the first quadrant is listed.
 
 ## Results
 
-### Remark 1.5 (n = 8, k = 4): confirmed
+### Remark 1.5 (n = 8, k = 4): confirmed, by ED and exactly
 
-![remark](figs/remark_n8_k4.png)
+![n=8, k=4: ED (left) and exact traceless-GOE(8) result (right); bottom row zooms on the first off-axis zero](figs/remark_n8_k4_ed_vs_exact.png)
 
-$2.6\times10^9$ disorder samples ($\sqrt{V_8}=0.3202$). The first seven zero pairs lie exactly on the imaginary axis.
-The plot shows a subsequent pair to be off it:
+**Left: ED.** Annealed over $2.6\times10^9$ disorder samples ($\sqrt{V_8}=0.3202$).
+**Right: exact.** For $n=8$ the Majoranas have a real representation, so every $\Gamma_S$ ($|S|=4$) is real
+symmetric. In each fermion-parity sector $\Gamma_{S^c}=\pm\Gamma_S$. The 35 operators $\{\Gamma_S: 1\in S\}$ restricted
+to a sector are traceless and orthonormal for the normalized trace, and 35 is exactly the dimension of the traceless
+real symmetric $8\times8$ matrices. Hence
 
-| t = √V z | z | jackknife error (Re t, Im t) |
-|---|---|---|
-| 1.9582 i | 6.115 i | (0, 3e-6) |
-| 3.5648 i | 11.132 i | (0, 1e-5) |
-| 5.1868 i | 16.198 i | (0, 2e-5) |
-| 6.8728 i | 21.463 i | (0, 5e-5) |
-| 8.6758 i | 27.093 i | (0, 1e-4) |
-| **8.553 + 10.548 i** | **26.71 + 32.94 i** | **(0.017, 0.026)** |
-| 10.6807 i | 33.355 i | (0, 1e-4) |
-| 13.0868 i | 40.868 i | (0, 1e-4) |
+$$H_{\rm SYK}\big|_{\pm} = \sum_{S\ni 1}(g_S\pm g_{S^c})\,\Gamma_S\big|_{\pm} \;\stackrel{d}{=}\; c\,H_0,\qquad
+H_0 = \text{traceless GOE}(8),\quad c^2=\tfrac{3}{128},$$
 
-So $Z_8$ has the quadruplet $z\approx\pm26.71\pm32.94\,i$, whose real part is about 500 standard errors from zero. Two
-disjoint halves of the samples give the same zero. Beyond $|t|\approx13$ the remaining zeros fan out into the plane
-(open grey rings: there the Monte Carlo noise is too large to pin them down individually). The zoom shows the
-off-axis zero as a phase singularity, where all colours meet, away from the axis. Full table:
+independently in the two sectors. Feeding Mehta's exact finite-$N$ GOE density through the Laplace transform gives,
+with $w=cz$ (`goe.py`),
+
+$$Z_{8,4}(z)=\frac{e^{-w^2/16}}{92160}\Big[e^{w^2/4}\big(w^{10}+90w^8+6540w^6+62520w^4+159120w^2+92160\big)
++\sqrt\pi\,e^{w^2/2}\,\mathrm{erf}(w/2)\big(1920w^7+20160w^5+50400w^3+25200w\big)\Big].$$
+
+On the imaginary axis this is $e^{-3y^2/16}\,G(y)/92160$ with
+$G(y)=P(-y^2)-2D(y/2)R(y)$, where $D$ is the Dawson function. $G$ has exactly **7 positive zeros** and is then
+dominated by $-y^{10}$. So $Z_{8,4}$ has exactly 14 zeros on $i\mathbb R$, and **all its other zeros lie off the
+axis**, along four rays at about $45^\circ$ (`exact_n8k4.py`).
+
+| exact t = √V z | exact z | ED zero (t) | ED − exact, in jackknife σ |
+|---|---|---|---|
+| 1.9582 i | 6.115 i | 1.9582 i | 1.1 |
+| 3.5648 i | 11.133 i | 3.5648 i | 1.6 |
+| 5.1868 i | 16.198 i | 5.1868 i | 1.7 |
+| 6.8728 i | 21.463 i | 6.8728 i | 0.2 |
+| 8.6758 i | 27.093 i | 8.6758 i | 0.1 |
+| **8.5393 + 10.5721 i** | **26.667 + 33.015 i** | **8.553 ± 0.017 + (10.548 ± 0.026) i** | **0.9** |
+| 10.6806 i | 33.354 i | 10.6807 i | 1.5 |
+| 13.0870 i | 40.869 i | 13.0868 i | 1.5 |
+| 11.659 + 12.825 i, 14.008 + 14.744 i, 15.973 + 16.448 i, … | | not resolved by ED (noise veil) | |
+
+Every resolved ED zero agrees with an exact zero to within 1.7σ. This includes the off-axis quadruplet
+$z\approx\pm26.7\pm33.0\,i$, whose real part is about 500σ from zero in ED. The 22 ED zeros that the resolved
+criterion rejected (grey rings) have no exact counterpart: they are Monte Carlo noise. That validates the noise
+handling used for all other $(n,k)$. Tables: [results/exact_n8_k4.md](results/exact_n8_k4.md),
 [results/zeros_n8_k4.md](results/zeros_n8_k4.md).
 
 ### Range of (n, k)
@@ -143,6 +161,8 @@ n = 20, 22, 24 (ED on 2¹⁰–2¹² dimensional blocks) are being added.
   the samples differ by $<d/5$, and, for off-axis zeros, $\Re z > 5\,\mathrm{err}$. The halves check guards against
   a failure the jackknife cannot see: at large $\Re z$ the average is weighted by $e^{\Re z\,\lambda}$, so rare
   large-eigenvalue samples can dominate it.
+* **Exact check at n = 8, k = 4** (`goe.py`, `exact_n8k4.py`): closed form via the traceless GOE(8), evaluated with
+  scipy's complex erf. It agrees with a 40-digit mpmath evaluation to $2\times10^{-12}$ over the plotted window.
 * **q-oscillator comparison.** The paper's finite-$n$ comparator $Q_n(z)=\mathcal L_{q_n}(\sqrt{V_n}z)$,
   $q_n=e^{-2k^2/n}$, has zeros $\pm i\,t_j(q_n)/\sqrt{V_n}$. Here $t_j(q)$ are computed from a truncated Jacobi
   matrix of $a_q+a_q^*$, i.e. the Gauss rule of the $q$-Gaussian (`qosc.py`). They are drawn as open circles.
@@ -153,6 +173,7 @@ n = 20, 22, 24 (ED on 2¹⁰–2¹² dimensional blocks) are being added.
 python tests/test_syk.py                                   # Majorana algebra, builder vs dense, estimator checks
 python sample.py --n 8 --k 4 --samples 1000000 --seed 1 --out out/n8_k4/s1.npz
 python analyze.py out/n8_k4/*.npz --out results/n8_k4      # zeros + jackknife errors -> json, plotting grid -> npz
+python exact_n8k4.py results/n8_k4.json --out results/exact_n8_k4   # exact n=8, k=4 zeros vs ED (needs sympy)
 python plot_roots.py results --out figs
 python summarize.py results --readme README.md             # tables + refresh the figure gallery above
 ```
